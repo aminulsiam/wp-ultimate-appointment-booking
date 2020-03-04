@@ -1,19 +1,28 @@
 <?php
-if ( ! defined( 'ABSPATH' ) ) { die; } // Cannot access pages directly.
+// Cannot access pages directly.
+if ( ! defined( 'ABSPATH' ) ) {
+	die;
+}
 
-class Mage_Tax{
-	public function __construct(){
-		add_action("init",array($this,"mage_tax_init"),10);
+/**
+ * Class ULTAPP_Tax
+ *
+ * This class is register all taxonomy.
+ */
+class ULTAPP_Tax {
+	public function __construct() {
+		add_action( "init", array( $this, "ultapp_tax_init" ), 10 );
 	}
-	public function mage_tax_init(){
+
+	public function ultapp_tax_init() {
 		$labels = array(
-			'singular_name'              => _x( 'Category',MAGE_TEXTDOMAIN ),
-			'name'                       => _x( 'Category',MAGE_TEXTDOMAIN ),
+			'singular_name' => _x( 'Category', '' ),
+			'name'          => _x( 'Category', '' ),
 		);
 
 		$args = array(
 			'hierarchical'          => true,
-			"public" 				=> true,
+			"public"                => true,
 			'labels'                => $labels,
 			'show_ui'               => true,
 			'show_admin_column'     => true,
@@ -21,7 +30,8 @@ class Mage_Tax{
 			'query_var'             => true,
 			'rewrite'               => array( 'slug' => 'video-cat' ),
 		);
-		register_taxonomy('mage_video_cat', 'mage_video', $args);
+		register_taxonomy( 'mage_video_cat', 'mage_video', $args );
 	}
 }
-new Mage_Tax();
+
+new ULTAPP_Tax();

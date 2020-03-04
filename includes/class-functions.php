@@ -1,13 +1,15 @@
 <?php
-if ( ! defined( 'ABSPATH' ) ) { die; } // Cannot access pages directly.
+if ( ! defined( 'ABSPATH' ) ) {
+	die;
+} // Cannot access pages directly.
+
 /**
  * @since      1.0.0
  * @package    Mage_Plugin
  * @subpackage Mage_Plugin/includes
  * @author     MagePeople team <magepeopleteam@gmail.com>
  */
-
-class Mage_Plugin_Functions {
+class ULTAPP_Plugin_Functions {
 
 	protected $loader;
 
@@ -16,12 +18,12 @@ class Mage_Plugin_Functions {
 	protected $version;
 
 	public function __construct() {
-        $this->add_hooks();
-        add_filter('mage_wc_products', array($this, 'add_cpt_to_wc_product'), 10, 1);		
+		$this->add_hooks();
+		add_filter( 'mage_wc_products', array( $this, 'add_cpt_to_wc_product' ), 10, 1 );
 	}
 
 	private function add_hooks() {
-        add_action( 'plugins_loaded',array($this, 'load_plugin_textdomain' ));
+		add_action( 'plugins_loaded', array( $this, 'load_plugin_textdomain' ) );
 	}
 
 	public function load_plugin_textdomain() {
@@ -32,12 +34,14 @@ class Mage_Plugin_Functions {
 		);
 	}
 
-    // Adding Custom Post to WC Prodct Data Filter.
-    public function add_cpt_to_wc_product($data){
-        $mage_cpt = array('mage_video');
-        return array_merge($data,$mage_cpt);
-    }
+	// Adding Custom Post to WC Prodct Data Filter.
+	public function add_cpt_to_wc_product( $data ) {
+		$mage_cpt = array( 'mage_video' );
+
+		return array_merge( $data, $mage_cpt );
+	}
 
 }
-global $magemain;
-$magemain = new Mage_Plugin_Functions();
+
+global $ultapp_functions;
+$ultapp_functions = new ULTAPP_Plugin_Functions();

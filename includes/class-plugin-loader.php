@@ -21,7 +21,7 @@ if ( ! defined( 'ABSPATH' ) ) { die; } // Cannot access pages directly.
  * @subpackage Mage_Plugin/includes
  * @author     MagePeople team <magepeopleteam@gmail.com>
  */
-class Mage_Plugin_Loader {
+class ULTAPP_Plugin_Loader {
 
 	/**
 	 * The array of actions registered with WordPress.

@@ -1,2 +1,5 @@
 <?php
-if ( ! defined( 'ABSPATH' ) ) { die; } // Cannot access pages directly.
+// Cannot access pages directly.
+if ( ! defined( 'ABSPATH' ) ) {
+	die;
+}
