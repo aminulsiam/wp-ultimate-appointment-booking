@@ -5,11 +5,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * @package    Mage_Plugin
- * @subpackage Mage_Plugin/public
- * @author     MagePeople team <magepeopleteam@gmail.com>
+ * @package    wp-ultimate-appointment-booking
+ * @subpackage wp-ultimate-appointment-booking/public
+ * @author     3start team <aminulhossain90@gmail.com>
  */
-class ULTAPP_Plugin_Public {
+class Ultapp_Plugin_Public {
 
 	private $plugin_name;
 
@@ -35,7 +35,7 @@ class ULTAPP_Plugin_Public {
 
 
 	public function enqueue_scripts() {
-		wp_enqueue_script( 'mage-public-js', ULTAPP_PLUGIN_DIR . 'js/mage-plugin-public.js', array( 'jquery' ), time(), false );
+		wp_enqueue_script( 'mage-public-js', ULTAPP_PLUGIN_DIR . 'js/ultapp-plugin-public.js', array( 'jquery' ), time(), false );
 
 	}
 
@@ -66,9 +66,9 @@ class ULTAPP_Plugin_Public {
 		return $template;
 	}
 
-}
+}//end class
 
-new ULTAPP_Plugin_Public();
+new Ultapp_Plugin_Public();
 
 
 

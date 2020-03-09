@@ -8,7 +8,7 @@
  * Author URI:        the3star.com
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
- * Text Domain:       wpultimateapp
+ * Text Domain:       ultimate-appointment
  * Domain Path:       /languages
  */
 
@@ -39,13 +39,17 @@ function ultapp_deactivate_plugin() {
 register_activation_hook( __FILE__, 'ultapp_activate_plugin' );
 register_deactivation_hook( __FILE__, 'ultapp_deactivate_plugin' );
 
+/**
+ * Ultimate_Appointment class
+ *
+ * @class Ultimate_Appointment The class that holds the entire Ultimate_Appointment plugin
+ */
+final class Ultimate_Appointment {
 
-class ULTAPP_Base{
-	
-	public function __construct(){
+	public function __construct() {
 		$this->define_constants();
 		$this->load_main_class();
-		$this->run_wpultimateapp_plugin();
+		$this->run_ultimateapp_plugin();
 	}
 
 	public function define_constants() {
@@ -54,13 +58,32 @@ class ULTAPP_Base{
 		define( 'ULTAPP_PLUGIN_FILE', plugin_basename( __FILE__ ) );
 	}
 
-	public function load_main_class(){
-		require ULTAPP_PLUGIN_DIR . 'includes/class-plugin.php';
+	public function load_main_class() {
+		require ULTAPP_PLUGIN_DIR . 'includes/class-ultapp-plugin.php';
 	}
 
-	public function run_wpultimateapp_plugin() {
+	public function run_ultimateapp_plugin() {
 		$plugin = new ULTAPP_Plugin();
 		$plugin->run();
 	}
-}
-new ULTAPP_Base();
+
+	/**
+	 * Initializes the Ultimate_Appointment() class
+	 *
+	 * Checks for an existing Ultimate_Appointment() instance
+	 * and if it doesn't find one, creates it.
+	 */
+	public static function init() {
+		static $instance = false;
+
+		if ( ! $instance ) {
+			$instance = new Ultimate_Appointment();
+		}
+
+		return $instance;
+
+	}//end method init
+
+}//end class Ultimate_Appointment
+
+Ultimate_Appointment::init();

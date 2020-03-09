@@ -1,14 +1,15 @@
 <?php
-if ( ! defined( 'ABSPATH' ) ) { die; } // Cannot access pages directly.
+if ( ! defined( 'ABSPATH' ) ) {
+	die;
+} // Cannot access pages directly.
+
 /**
  * @since      1.0.0
- * @package    Mage_Plugin
- * @subpackage Mage_Plugin/includes
- * @author     MagePeople team <magepeopleteam@gmail.com>
+ * @package    wp-ultimate-appointment-booking
+ * @subpackage wp-ultimate-appointment-booking/includes
+ * @author     3start team <aminulhossain90@gmail.com>
  */
-
-class ULTAPP_Plugin {
-
+class Ultapp_Plugin {
 
 	protected $loader;
 
@@ -21,7 +22,6 @@ class ULTAPP_Plugin {
 	}
 
 	private function load_dependencies() {
-		require_once ULTAPP_PLUGIN_DIR . 'lib/classes/class-wc-product-data.php';
 		require_once ULTAPP_PLUGIN_DIR . 'lib/classes/class-form-fields-generator.php';
 		require_once ULTAPP_PLUGIN_DIR . 'lib/classes/class-form-fields-wrapper.php';
 		require_once ULTAPP_PLUGIN_DIR . 'lib/classes/class-meta-box.php';
@@ -30,11 +30,10 @@ class ULTAPP_Plugin {
 		require_once ULTAPP_PLUGIN_DIR . 'lib/classes/class-menu-page.php';
 		require_once ULTAPP_PLUGIN_DIR . 'includes/class-plugin-loader.php';
 		require_once ULTAPP_PLUGIN_DIR . 'includes/class-functions.php';
-		require_once ULTAPP_PLUGIN_DIR . 'admin/class-plugin-admin.php';
-		require_once ULTAPP_PLUGIN_DIR . 'public/class-plugin-public.php';
-		$this->loader = new ULTAPP_Plugin_Loader();
+		require_once ULTAPP_PLUGIN_DIR . 'admin/class-ultapp-plugin-admin.php';
+		require_once ULTAPP_PLUGIN_DIR . 'public/class-ultapp-plugin-public.php';
+		$this->loader = new Ultapp_Plugin_Loader();
 	}
-
 
 
 	public function run() {
