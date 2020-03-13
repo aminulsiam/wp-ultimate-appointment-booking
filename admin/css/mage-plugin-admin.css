@@ -11,9 +11,9 @@
     margin: 5px;
 }
 
-.img-container img{
-    width:100%;
-    height:90px;
+.img-container img {
+    width: 100%;
+    height: 90px;
 }
 
 .ap_display_div {
@@ -26,31 +26,32 @@
     position: relative;
     z-index: 99998 !important;;
     float: left;
-    width: auto!important;
-    min-width:250px!important;
+    width: auto !important;
+    min-width: 250px !important;
     margin-bottom: 0;
     display: table;
     table-layout: fixed;
 }
 
 /*metabox css*/
-.ap-single .mb-box-class{
-    padding:0;
+.ap-single .mb-box-class {
+    padding: 0;
 }
+
 .mb-box-class {
     width: calc(100% - 40px);
     padding: 0px 15px 15px;
     margin: 20px 0;
     border-bottom: 1px solid #e2e2e2;
 }
-.mb-box-class:last-child{
+
+.mb-box-class:last-child {
     border-bottom: none;
 }
 
-
 /*context normla*/
-#postbox-container-2 .mb-box-class>label
-{width: 30%;
+#postbox-container-2 .mb-box-class > label {
+    width: 30%;
     min-width: 70px;
     display: inline-block;
     font-size: 14px;
@@ -58,47 +59,52 @@
     display: inline-block;
     vertical-align: middle;
 }
+
 #postbox-container-2 .description {
     padding-left: 31%;
     padding-top: 5px;
 }
+
 .ap-single label {
     display: none !important;
 }
-.mb-box-class .radio-label{
-    margin:0 !important;
+
+.mb-box-class .radio-label {
+    margin: 0 !important;
 }
-#postbox-container-2 .mb-box-class>input,#postbox-container-2 .mb-box-class>textarea ,#postbox-container-2 .color-metabox{
+
+#postbox-container-2 .mb-box-class > input, #postbox-container-2 .mb-box-class > textarea, #postbox-container-2 .color-metabox {
     width: 65%;
     height: 30px;
     box-shadow: none;
     display: inline-block;
     vertical-align: middle;
 }
-#postbox-container-2 .mb-box-class>input[type="radio"]{
-    width:initial;
-    height:initial;
+
+#postbox-container-2 .mb-box-class > input[type="radio"] {
+    width: initial;
+    height: initial;
 }
+
 /*context advance*/
 .radio-container {
     display: inline-block;
 }
-#postbox-container-1 .mb-box-class>label
-{
+
+#postbox-container-1 .mb-box-class > label {
     min-width: 70px;
     display: inline-block;
     font-size: 14px;
     font-weight: 500;
-    margin:10px 0;
+    margin: 10px 0;
 
 }
-#postbox-container-1 .mb-box-class>input:not([type=radio]) {
+
+#postbox-container-1 .mb-box-class > input:not([type=radio]) {
     height: 30px;
     box-shadow: none;
-    margin:10px 0;
+    margin: 10px 0;
 }
-
-
 
 .ap-meta-fields select {
     -webkit-appearance: button;
@@ -121,23 +127,24 @@
     font-size: 14px;
 }
 
-.ap-meta-fields>.ap-group-child:last-child .mb-box-class
-{
+.ap-meta-fields > .ap-group-child:last-child .mb-box-class {
     border-bottom: none;
 }
-#postbox-container-2  [data-repeater-item]{
+
+#postbox-container-2 [data-repeater-item] {
     padding-right: 100px;
 }
-[data-repeater-item]{
+
+[data-repeater-item] {
     position: relative;
     background: #f5f5f5;
     padding-left: 15px;
-    padding-top:10px;
-    padding-bottom:10px;
-    margin-bottom:15px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
 }
 
-.ap-meta-fields .repeater-delete-button{
+.ap-meta-fields .repeater-delete-button {
     position: absolute;
     top: 50%;
     right: 15px;
@@ -149,7 +156,7 @@
     padding: 7px 12px;
 }
 
-.ap-meta-fields  .repeater-add-button{
+.ap-meta-fields .repeater-add-button {
     color: #fff;
     border: 1px solid #1da055;
     border-radius: 3px;
@@ -157,10 +164,12 @@
     background: #2ecc71;
     min-width: 75px;
 }
+
 .color-metabox {
     z-index: 10000;
     position: relative;
 }
+
 .parent_label {
     text-align: center;
     text-transform: capitalize;
@@ -175,32 +184,65 @@ select2 param css
     position: relative;
     z-index: 100001 !important;
     float: left;
-    width: 100%!important;
+    width: 100% !important;
     margin-bottom: 0;
     display: table;
     table-layout: fixed;
 }
 
 /*metabox css*/
-.ap-single .mb-box-class{
-    padding:0;
+.ap-single .mb-box-class {
+    padding: 0;
 }
+
 .mb-box-class {
     width: calc(100% - 40px);
     padding: 0px 15px 15px;
     margin: 20px 0;
     border-bottom: 1px solid #e2e2e2;
 }
-.mb-box-class:last-child{
+
+.mb-box-class:last-child {
     border-bottom: none;
 }
 
-#postbox-container-1 .mb-box-class>label {display: block;}
-#postbox-container-1 .mb-box-class>input:not([type=radio]) {width:100%;}
+#postbox-container-1 .mb-box-class > label {
+    display: block;
+}
+
+#postbox-container-1 .mb-box-class > input:not([type=radio]) {
+    width: 100%;
+}
 
 #postbox-container-1 .mb-box-class {
     padding: 0px 15px 0 0px;
     width: 100%;
     margin: 0;
+}
+
+.service_pricing_table table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 70%;
+    margin: 0 auto;
+    margin-top: 40px;
+}
+
+.service_pricing_table td, .service_pricing_table th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+.service_pricing_table tr:nth-child(even) {
+    background-color: #dddddd;
+}
+
+.service_price {
+    margin-top: 30px;
+}
+
+.service_price label {
+    font-weight: bold;
 }
 
