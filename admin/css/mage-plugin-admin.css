@@ -235,7 +235,7 @@ select2 param css
 }
 
 .service_pricing_table tr:nth-child(even) {
-    background-color: #dddddd;
+    /*background-color: #dddddd;*/
 }
 
 .service_price {
@@ -244,5 +244,11 @@ select2 param css
 
 .service_price label {
     font-weight: bold;
+}
+
+.service_price p {
+    text-align: center;
+    font-weight: bold;
+    color: red;
 }
 

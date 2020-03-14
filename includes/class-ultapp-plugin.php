@@ -30,6 +30,7 @@ class Ultapp_Plugin {
 		require_once ULTAPP_PLUGIN_DIR . 'lib/classes/class-menu-page.php';
 		require_once ULTAPP_PLUGIN_DIR . 'includes/class-plugin-loader.php';
 		require_once ULTAPP_PLUGIN_DIR . 'includes/class-functions.php';
+		require_once ULTAPP_PLUGIN_DIR . 'includes/class-ultapp-plugin-helper.php';
 		require_once ULTAPP_PLUGIN_DIR . 'admin/class-ultapp-plugin-admin.php';
 		require_once ULTAPP_PLUGIN_DIR . 'public/class-ultapp-plugin-public.php';
 		$this->loader = new Ultapp_Plugin_Loader();

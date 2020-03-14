@@ -21,108 +21,119 @@ class Ultapp_Admin {
 		// $this->version = $version;
 
 		$this->load_admin_dependencies();
-		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_styles' ) );
-		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
+		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_styles' ] );
+		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_scripts' ] );
 
 		add_action( 'add_meta_boxes', [ $this, 'add_meta_boxes' ] );
+		add_action( 'save_post', [ $this, 'insert_extra_service' ] );
 	}
 
+	/**
+     * Insert appointment extra services.
+     *
+	 * @param $post_id
+	 *
+	 * @return mixed
+	 */
+	public function insert_extra_service( $post_id ) {
+
+		if ( ! Ultapp_Helper::is_sercured( 'ex_service_nonce', 'ex_service_nonce', $post_id ) ) {
+			return $post_id;
+		}
+
+		$extra_service = isset( $_POST['ex_service'] ) ? maybe_serialize( $_POST['ex_service'] ) : "";
+
+		update_post_meta( $post_id, 'ulpapp_extra_services', $extra_service );
+
+
+	}//end method insert_extra_service
 
 	/**
-	 *
+     * Display extra services with appoinment
+     *
+	 * @param $post
 	 */
-	public function ultapp_time_extra_services() {
+	public function ultapp_extra_services( $post ) {
 		?>
+        <div class="extra_service_section">
+            <div class="service_price">
+                <label for="">Add Your Extra Services : </label>
+                <input type="text" name="ex_service_name" class="ex_service_name"
+                       placeholder="service name" autocomplete="off"/>
+                <input type="text" name="ex_service_price" class="ex_service_price"
+                       placeholder="service price" autocomplete="off"/>
+                <input type="text" name="ex_service_time" class="ex_service_time datepicker"
+                       placeholder="service time" autocomplete="off"/>
 
-        <form action="" method="post">
-            <div class="extra_service_section">
-
-                <div class="service_price">
-                    <label for="">Add Your Extra Services : </label>
-                    <input type="text" name="ex_service_name" class="ex_service_name" placeholder="service name "/>
-                    <input type="text" name="ex_service_price" class="ex_service_price" placeholder="service price"/>
-                    <input type="text" name="ex_service_time" class="ex_service_time" placeholder="service time"/>
-
-                    <a href="#" class="button ex_service_price_add">
+                <a href="#" class="button ex_service_price_add">
                         <span class="dashicons dashicons-plus-alt"
-                              style="margin-top:3px;color: green;"></span>Add
-                    </a>
-
-                </div>
-
-                <div class="service_pricing_table">
-                    <table>
-                        <tr>
-                            <th>Extra Services Name</th>
-                            <th>Extra Services Price</th>
-                            <th>Extra Services Time</th>
-                            <th>Action</th>
-                        </tr>
-
-
-
-
-                        <?php
-						$post_id = isset( $_GET['post'] ) ? $_GET['post'] : "";
-
-						$get_service_pricing = maybe_unserialize( get_post_meta( $post_id, 'service_pricing', true ) );
-
-						$last_count = isset( $get_service_pricing['service_price_last_count'] ) ? $get_service_pricing['service_price_last_count'] : 0;
-
-						if ( ! is_array( $get_service_pricing ) ) {
-							$get_service_pricing = array();
-						}
-
-
-						foreach ( $get_service_pricing as $key => $service_pricing ) {
-							if ( "service_price_last_count" != $key ) {
-								?>
-                                <tr>
-                                    <td>
-										<?php echo $service_pricing['service_title']; ?>
-                                        <input type="hidden"
-                                               name="service_pricing[<?php echo $key; ?>][service_title]"
-                                               value="<?php echo $service_pricing['service_title']; ?>">
-                                    </td>
-
-                                    <td>
-										<?php echo $service_pricing['service_price']; ?>
-
-                                        <input type="hidden" class="service_price"
-                                               name="service_pricing[<?php echo $key; ?>][service_price]"
-                                               value="<?php echo $service_pricing['service_price']; ?>">
-                                    </td>
-
-                                    <td>
-
-                                        <input type="number" min="1"
-                                               value="<?php echo $service_pricing['qty']; ?>"
-                                               name="service_pricing[<?php echo $key; ?>][qty]"
-                                               class="service_qty qty">
-
-                                    </td>
-
-                                    <td>
-                                        <a href="" class="button service_price_remove"><span
-                                                    class="dashicons dashicons-trash"
-                                                    style="margin-top: 3px;color: red;"></span>Remove</a>
-                                    </td>
-                                </tr>
-
-								<?php
-							}
-						} ?>
-                    </table>
-
-<!--                    <input type="hidden" name="submit_service_pricing">-->
-					<?php //wp_nonce_field( 'service_prices_metabox_nonce', 'service_prices_nonce' ); ?>
-
-                    <input type="hidden" name="service_pricing[service_price_last_count]"
-                           class="service_price_last_count" value="<?php echo $last_count; ?>">
-                </div>
+                              style="margin-top:3px;color: #00bb00;"></span>Add
+                </a>
 
             </div>
-        </form>
+
+            <div class="service_pricing_table">
+                <table>
+                    <tr>
+                        <th>Extra Services Name</th>
+                        <th>Extra Services Price</th>
+                        <th>Extra Services Time</th>
+                        <th>Action</th>
+                    </tr>
+
+					<?php
+					$post_id = $post->ID;
+					$get_extra_service = maybe_unserialize( get_post_meta( $post_id, 'ulpapp_extra_services', true ) );
+					$last_count = isset( $get_extra_service['ex_service_last_count'] ) ? $get_extra_service['ex_service_last_count'] : 0;
+
+					if ( ! is_array( $get_extra_service ) ) {
+						$get_extra_service = array();
+					}
+
+					foreach ( $get_extra_service as $key => $ex_service ) {
+						if ( "ex_service_last_count" != $key ) {
+							?>
+                            <tr>
+                                <td>
+									<?php echo $ex_service['name']; ?>
+                                    <input type="hidden"
+                                           name="ex_service[<?php echo $key; ?>][name]"
+                                           value="<?php echo $ex_service['name']; ?>">
+                                </td>
+
+                                <td>
+									<?php echo $ex_service['price']; ?>
+
+                                    <input type="hidden" class="service_price"
+                                           name="ex_service[<?php echo $key; ?>][price]"
+                                           value="<?php echo $ex_service['price']; ?>">
+                                </td>
+
+                                <td>
+									<?php echo $ex_service['time']; ?>
+                                    <input type="hidden" min="1"
+                                           value="<?php echo $ex_service['time']; ?>"
+                                           name="ex_service[<?php echo $key; ?>][time]">
+                                </td>
+
+                                <td>
+                                    <a href="" class="button ex_service_remove"><span
+                                                class="dashicons dashicons-trash"
+                                                style="margin-top: 3px;color: red;"></span>Remove</a>
+                                </td>
+                            </tr>
+
+							<?php
+						}
+					} ?>
+                </table>
+
+				<?php wp_nonce_field( 'ex_service_nonce', 'ex_service_nonce' ); ?>
+
+                <input type="hidden" name="ex_service[ex_service_last_count]"
+                       class="ex_service_last_count" value="<?php echo $last_count; ?>">
+            </div>
+        </div>
 
 		<?php
 	}//end method ultapp_time_extra_services
@@ -152,7 +163,7 @@ class Ultapp_Admin {
 		add_meta_box(
 			'ultapp_extra_service_metabox',
 			'Wp unlimited appointment extra services with appointment',
-			[ $this, 'ultapp_time_extra_services' ],
+			[ $this, 'ultapp_extra_services' ],
 			[ 'appointment' ]
 		);
 
