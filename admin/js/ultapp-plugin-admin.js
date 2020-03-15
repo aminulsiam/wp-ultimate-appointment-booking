@@ -6,16 +6,12 @@ jQuery(document).ready(function ($) {
 
     //===============================================
 
-    $(".ex_service_price_add").on("click", function (e) {
-
+    $(".ex_time_add").on("click", function (e) {
 
         e.preventDefault();
 
-        var ex_service_name = $('.ex_service_name').val();
-        var ex_service_price = $('.ex_service_price').val();
-        var ex_service_time = $('.ex_service_time').val();
 
-        var $last_count = $('.ex_service_last_count');
+        var $last_count = $('.ex_time_last_count');
         var $last_count_val = parseInt($last_count.val());
 
         $last_count_val++;
@@ -23,14 +19,10 @@ jQuery(document).ready(function ($) {
         $last_count.val($last_count_val);
 
 
-        var fields = '<tr>' +
-            '<td><input type="hidden" value="' + ex_service_name + '" name="ex_service[' + $last_count_val + '][name]" class="ex_service_name" />' + ex_service_name + '</td>' +
-            '<td><input type="hidden" value="' + ex_service_price + '" name="ex_service[' + $last_count_val + '][price]" class="ex_service_price" />' + ex_service_price + '</td>' +
-            '<td><input type="hidden" value="' + ex_service_time + '" name="ex_service[' + $last_count_val + '][time]" class="ex_service_time" />' + ex_service_time + '</td>' +
-            '<td><a href="" class="ex_service_remove button"><span class="dashicons dashicons-trash" style="margin-top: 3px;color: red;"></span> Remove </a></td>' +
-            '</tr>';
+        var fields = '<p><input type="text" name="ex_time[' + $last_count_val + '][start_time]" class="datepicker time_field" > - <input type="text" name="ex_time[' + $last_count_val + '][end_time]" class="datepicker time_field" >' +
+            '<a href="" class="button ex_time_remove"><span class="dashicons dashicons-trash" style="margin-top: 3px;color: red;"></span>Remove</a></p>';
 
-        $('.service_pricing_table table').append(fields);
+        $('.ex_date_time_section .time_input').append(fields);
 
 
     });
@@ -40,11 +32,11 @@ jQuery(document).ready(function ($) {
     // Remove extra service section specific row
 
     //================
-    $(".extra_service_section").on("click", ".ex_service_remove", function (e) {
+    $(".ex_date_time_section").on("click", ".ex_time_remove", function (e) {
 
         e.preventDefault();
 
-        $(this).closest('tr').remove();
+        $(this).closest('p').remove();
     });
 
     $('.datepicker').datepicker({

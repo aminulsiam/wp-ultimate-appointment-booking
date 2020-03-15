@@ -29,8 +29,8 @@ class Ultapp_Admin {
 	}
 
 	/**
-     * Insert appointment extra services.
-     *
+	 * Insert appointment extra services.
+	 *
 	 * @param $post_id
 	 *
 	 * @return mixed
@@ -41,31 +41,92 @@ class Ultapp_Admin {
 			return $post_id;
 		}
 
-		$extra_service = isset( $_POST['ex_service'] ) ? maybe_serialize( $_POST['ex_service'] ) : "";
+		$extra_date = isset( $_POST['ex_date'] ) ? maybe_serialize( $_POST['ex_date'] ) : "";
+		$extra_time = isset( $_POST['ex_time'] ) ? maybe_serialize( $_POST['ex_time'] ) : "";
 
-		update_post_meta( $post_id, 'ulpapp_extra_services', $extra_service );
+		update_post_meta( $post_id, 'ultapp_ex_date', $extra_date );
+		update_post_meta( $post_id, 'ultapp_ex_time', $extra_time );
 
 
 	}//end method insert_extra_service
 
 	/**
-     * Display extra services with appoinment
-     *
+	 * Display extra services with appoinment
+	 *
 	 * @param $post
 	 */
 	public function ultapp_extra_services( $post ) {
 		?>
-        <div class="extra_service_section">
-            <div class="service_price">
-                <label for="">Add Your Extra Services : </label>
-                <input type="text" name="ex_service_name" class="ex_service_name"
-                       placeholder="service name" autocomplete="off"/>
-                <input type="text" name="ex_service_price" class="ex_service_price"
-                       placeholder="service price" autocomplete="off"/>
-                <input type="text" name="ex_service_time" class="ex_service_time datepicker"
-                       placeholder="service time" autocomplete="off"/>
 
-                <a href="#" class="button ex_service_price_add">
+        <style>
+            input[type=text] {
+                padding: 8px 10px;
+                margin: 8px 0;
+                box-sizing: border-box;
+                border: 2px solid #ccc;
+                -webkit-transition: 0.5s;
+                transition: 0.5s;
+                outline: none;
+            }
+
+            input[type=text]:focus {
+                border: 2px solid #1e6abc;
+            }
+        </style>
+
+        <div class="ex_date_time_section">
+
+            <div class="ex_date">
+                <label for="">Add Your Exceptional Date : </label>
+
+				<?php
+				$post_id = $post->ID;
+				$ex_date = get_post_meta( $post_id, 'ultapp_ex_date', true );
+				?>
+
+                <input type="text" name="ex_date" class="ex_date datepicker"
+                       placeholder="exceptional date" value="<?php echo $ex_date; ?>" autocomplete="off"/>
+
+            </div>
+
+            <div class="ex_time">
+                <label for="">Add Your Exceptional Time : </label>
+
+                <span class="time_input">
+                    <?php
+
+                    $ex_time = maybe_unserialize( get_post_meta( $post_id, 'ultapp_ex_time', true ) );
+
+                    $last_count = isset( $ex_time['ex_time_last_count'] ) ? $ex_time['ex_time_last_count'] : 0;
+
+                    if ( ! is_array( $ex_time ) ) {
+	                    $ex_time = array();
+                    }
+
+
+                    foreach ( $ex_time as $key => $time ) {
+	                    if ( "ex_time_last_count" != $key ) {
+		                    ?>
+                            <p>
+                        <input type="text" name="ex_time[<?php echo $key; ?>][start_time]"
+                               value="<?php echo $time['start_time']; ?>"
+                               class="datepicker time_field"> -
+
+                        <input type="text" name="ex_time[<?php echo $key; ?>][end_time]"
+                               value="<?php echo $time['end_time']; ?>"
+                               class="datepicker time_field">
+
+                        <a href="" class="button ex_time_remove">
+                            <span class="dashicons dashicons-trash" style="margin-top: 3px;color: red;"></span>
+                            Remove</a>
+                    </p>
+
+	                    <?php }
+                    } ?>
+
+                </span>
+
+                <a href="#" class="button ex_time_add">
                         <span class="dashicons dashicons-plus-alt"
                               style="margin-top:3px;color: #00bb00;"></span>Add
                 </a>
@@ -82,56 +143,12 @@ class Ultapp_Admin {
                     </tr>
 
 					<?php
-					$post_id = $post->ID;
-					$get_extra_service = maybe_unserialize( get_post_meta( $post_id, 'ulpapp_extra_services', true ) );
-					$last_count = isset( $get_extra_service['ex_service_last_count'] ) ? $get_extra_service['ex_service_last_count'] : 0;
 
-					if ( ! is_array( $get_extra_service ) ) {
-						$get_extra_service = array();
-					}
+					wp_nonce_field( 'ex_service_nonce', 'ex_service_nonce' ); ?>
 
-					foreach ( $get_extra_service as $key => $ex_service ) {
-						if ( "ex_service_last_count" != $key ) {
-							?>
-                            <tr>
-                                <td>
-									<?php echo $ex_service['name']; ?>
-                                    <input type="hidden"
-                                           name="ex_service[<?php echo $key; ?>][name]"
-                                           value="<?php echo $ex_service['name']; ?>">
-                                </td>
-
-                                <td>
-									<?php echo $ex_service['price']; ?>
-
-                                    <input type="hidden" class="service_price"
-                                           name="ex_service[<?php echo $key; ?>][price]"
-                                           value="<?php echo $ex_service['price']; ?>">
-                                </td>
-
-                                <td>
-									<?php echo $ex_service['time']; ?>
-                                    <input type="hidden" min="1"
-                                           value="<?php echo $ex_service['time']; ?>"
-                                           name="ex_service[<?php echo $key; ?>][time]">
-                                </td>
-
-                                <td>
-                                    <a href="" class="button ex_service_remove"><span
-                                                class="dashicons dashicons-trash"
-                                                style="margin-top: 3px;color: red;"></span>Remove</a>
-                                </td>
-                            </tr>
-
-							<?php
-						}
-					} ?>
+                    <input type="hidden" name="ex_time[ex_time_last_count]"
+                           class="ex_time_last_count" value="<?php echo $last_count; ?>">
                 </table>
-
-				<?php wp_nonce_field( 'ex_service_nonce', 'ex_service_nonce' ); ?>
-
-                <input type="hidden" name="ex_service[ex_service_last_count]"
-                       class="ex_service_last_count" value="<?php echo $last_count; ?>">
             </div>
         </div>
 

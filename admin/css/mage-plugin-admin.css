@@ -60,10 +60,6 @@
     vertical-align: middle;
 }
 
-#postbox-container-2 .description {
-    padding-left: 31%;
-    padding-top: 5px;
-}
 
 .ap-single label {
     display: none !important;
@@ -229,7 +225,7 @@ select2 param css
 }
 
 .service_pricing_table td, .service_pricing_table th {
-    border: 1px solid #dddddd;
+    /*border: 1px solid #dddddd;*/
     text-align: left;
     padding: 8px;
 }
